@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import {execFileSync, exec, execSync} from 'child_process';
+import { execFileSync, exec, execSync } from 'child_process';
 
 @Injectable()
 export class RestartService {
-    async restartServer(){
-        execFileSync('kill_test.cmd',null,{cwd:process.env.ROOT_DIR})
-        execFileSync('startserver.bat',null,{cwd:process.env.ROOT_DIR})
-    }
+  async restartServer(PORT) {
+    console.log(PORT);
+    const port_num = PORT ?? '2302';
+    execFileSync('killtest.cmd', null, { cwd: process.env.ROOT_DIR });
+    execFileSync('startserver.bat', [`${port_num}`], {
+      cwd: process.env.ROOT_DIR,
+    });
+  }
 }

@@ -5,6 +5,7 @@ import { BotService } from './bot.service';
 @Global() //регистрируем модуль глобально, что бы он не стартовал дважды, из appModule его убираем из imports (я уже убрал)
 @Module({
   providers: [BotService],
-  imports: [RestartModule]
+  imports: [RestartModule],
+  exports: [BotService],
 })
 export class BotModule {}

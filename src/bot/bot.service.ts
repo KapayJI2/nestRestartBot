@@ -42,11 +42,16 @@ export class BotService {
     })
     .on('interactionCreate', async (interaction) => {
       if (!interaction.isCommand()) return;
-      const { commandName } = interaction;
+      const { commandName, channelId } = interaction;
+      console.log(interaction);
       try {
-        if (commandName == 'restart') {
+        if (
+          commandName === 'restart' &&
+          channelId === `${process.env.ALLOWED_CHANNEL}`
+        ) {
           const PORT = interaction.options.getNumber('port');
-          this.restartService.restartServer(PORT);
+          const reply = await this.restartService.restartServer(PORT);
+          interaction.reply(`Ответ сервера: ${reply}`);
         }
       } catch (e) {}
     });
